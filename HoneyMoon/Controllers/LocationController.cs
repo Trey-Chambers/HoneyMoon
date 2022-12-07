@@ -1,6 +1,7 @@
 ﻿using HoneyMoon.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using HoneyMoon.Models;
+using Azure;
 
 namespace HoneyMoon.Controllers
 {
@@ -29,6 +30,14 @@ namespace HoneyMoon.Controllers
             }
             return Ok(location);
         }
+
+        [HttpPost]
+        public IActionResult Add(Location location)
+        {
+            _locationRepository.AddLocation(location);
+            return CreatedAtAction("Get", new { id = location.Id }, location);
+        }
+
 
     }
 }

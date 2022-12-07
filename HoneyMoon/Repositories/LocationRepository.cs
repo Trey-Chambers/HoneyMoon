@@ -70,6 +70,23 @@ namespace HoneyMoon.Repositories
                 }
             }
         }
+        public void AddLocation(Location location)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                    INSERT INTO Location(city, country)
+                                    OUTPUT INSERTED.ID
+                                    VALUES (@city, @country)";
+                    cmd.Parameters.AddWithValue("@city", location.City);
+                    cmd.Parameters.AddWithValue("@country", location.Country);
+                    location.Id = (int)cmd.ExecuteScalar();
+                }
 
+            }
+        }
     }
 }
