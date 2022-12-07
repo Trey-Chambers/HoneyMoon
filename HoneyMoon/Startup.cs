@@ -28,6 +28,8 @@ namespace HoneyMoon
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
