@@ -37,6 +37,22 @@ namespace HoneyMoon.Controllers
             _locationRepository.AddLocation(location);
             return CreatedAtAction("Get", new { id = location.Id }, location);
         }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Location location)
+        {
+            if (id != location.Id)
+            {
+                return BadRequest();
+            }
+            _locationRepository.EditLocation(location);
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _locationRepository.DeleteLocation(id);
+            return NoContent();
+        }
 
 
     }

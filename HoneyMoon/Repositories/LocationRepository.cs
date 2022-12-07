@@ -88,5 +88,36 @@ namespace HoneyMoon.Repositories
 
             }
         }
+
+        public void EditLocation(Location location)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Location SET city = @city, country = @country WHERE Id = @locationId";
+                    cmd.Parameters.AddWithValue("@city", location.City);
+                    cmd.Parameters.AddWithValue("@country", location.Country);
+                    cmd.Parameters.AddWithValue("@locationId", location.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void DeleteLocation(int locationId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Location WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", locationId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }
